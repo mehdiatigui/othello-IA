@@ -5,8 +5,13 @@ from play import play
 
 # Pour se connecter au serveur du championnat
 async def inscription(data):
+    '''
+    :param data: dictionnaire avec une demande d'inscription pour un individu
+    :return: une réponse
+    '''
     try:
         reader, writer = await asyncio.open_connection('127.0.0.1', 3000)
+        # reader, writer = await asyncio.open_connection('10.12.12.3', 3000)
         print('connection établie')
         await WriteJson(writer, data)
 
@@ -18,21 +23,22 @@ async def inscription(data):
         response = 'not OK'
     return response
 
-
+# lance le serveur
 async def start_server(port):
     server = await asyncio.start_server(dialogue, 'localhost', port)
 
     async with server:
         await server.serve_forever()
 
-
+# dialogue avec l'autre serveur
 async def dialogue(reader, writer):
     msgReceived = await ReadJson(reader)
-    # print(msgReceived)
     message = ''
 
+    # reçois ping et répond pong
     if msgReceived['request'] == 'ping':
         message = {"response": "pong"}
+    # reçois play et répond le coup à jouer
     elif msgReceived['request'] == 'play':
         message = play(msgReceived)
 

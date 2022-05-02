@@ -14,7 +14,7 @@ permet de lire et d'écrire les fichiers json.
 ### play
 permet de jouer un coup choisi qui n'est pas un bad move.
 ## Stratégie
-![Luffy](https://www.melty.fr/wp-content/uploads/meltyfr/2022/02/media-38835.jpg)
+
 - Prendre en priorité les 4 coins
 - favoriser les coups sur les bords
     - priorité aux "3ème" coins
