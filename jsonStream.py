@@ -2,15 +2,21 @@ import json
 import asyncio
 
 
-async def ReadJson(reader: asyncio.StreamReader):
-    data = ''
-    chunk = await reader.read(512)
-    message = chunk.decode('utf8')
-    data = json.loads(message)
-    return data
+async def readJson(reader: asyncio.StreamReader):
+    message = ''
+    message_json = ''
+    while True:
+        chunk = await reader.read(100)
+        message += chunk.decode('utf-8')
+        try:
+            message_json = json.loads(message)
+            break
+        except json.JSONDecodeError:
+            pass
+    return message_json
 
 
-async def WriteJson(writer: asyncio.StreamWriter, obj):
-    message = json.dumps(obj).encode()
+async def writeJson(writer: asyncio.StreamWriter, obj):
+    message = json.dumps(obj).encode('utf-8')
     writer.write(message)
     await writer.drain()
