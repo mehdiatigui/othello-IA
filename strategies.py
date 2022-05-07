@@ -3,19 +3,22 @@ from utils import *
 
 
 # Humain
-def humain(legalMoves):
-    print('legalmoves : ', legalMoves)
-    move = input('move choice:  ?')
-    message = 'humain :' + move
-    try:
-        move = int(move)
-    except:
-        move = None
+# def humain(legalMoves):
+#     print('legalmoves : ', legalMoves)
+#     move = input('move choice:  ')
+#     message = 'humain :' + move
+#     try:
+#         move = int(move)
+#     except:
+#         move = None
+#
+#     return move, message
 
-    return move, message
+
 
 
 # Random
+
 def random_strategy(legalMoves_list):
     try:  # si liste n'est pas vide ==> random dans la site
         move = random.choice(legalMoves_list)
@@ -40,6 +43,7 @@ Weights = [
     [-50, -75,  0, 0, 0,  0, -75, -50],
     [100, -50, 10, 5, 5, 10, -50, 100]
 ]
+
 # Weights2 = [
 #     [500,   -100,   100,    50, 50, 100, -100, 500],
 #     [-50,   -100,    -5,    -5, -5, -5, -100, -50],
