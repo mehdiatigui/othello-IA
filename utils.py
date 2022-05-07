@@ -9,7 +9,6 @@ directions = [
     (-1, -1),  # Up-Left
 ]
 
-
 # BOARD
 # 00 01 02 03 04 05 06 07
 # 08 09 10 11 12 13 14 15
@@ -76,17 +75,6 @@ def isGameOver(board):
     return True
 
 
-# retourner la prochaine case en suivant une direction
-def avancer(tile, direction):
-    currentTile = tile
-    row, col = get_coordinates(currentTile)
-    while is_inside(row + direction[0], col + direction[1]):
-        row = row + direction[0]
-        col = col + direction[1]
-        currentTile = get_index(row, col)
-        yield currentTile
-
-
 # Retourner les listes des index dans les 8 directions possibles
 def list_directions(index):
     '''
@@ -94,21 +82,20 @@ def list_directions(index):
     :return: les listes directionnelles
     '''
     for dir in directions:
-        list = []
+        cells = []
         row, col = get_coordinates(index)
-        while is_inside(row, col):
+        while is_inside(row + dir[0], col + dir[1]):
             row += dir[0]
             col += dir[1]
-            list.append(get_index(row, col))
-        list.pop()
-        yield list
+            cells.append(get_index(row, col))
+        yield cells
 
 
 # Retourner la liste de coups possibles pour le joueur current
 def get_legal_moves(board, playerIndex):
     '''
     :param board: liste contenant les deux listes des index des joueurs
-    :param current: l'index dujoueur ? 0 ou 1
+    :param playerIndex: l'index du joueur ? 0 ou 1
     :return: une liste de coups possibles
     '''
     otherPlayerIndex = abs(playerIndex - 1)  # (playerIndex + 1) % 2

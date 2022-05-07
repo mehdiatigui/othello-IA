@@ -13,8 +13,8 @@ class MyInfo:
 
 async def othello(info):
     # se connecter au serveur de championnat
-    # Host_Ip = '10.12.12.63'
-    Host_Ip = 'localhost'
+    Host_Ip = '10.12.12.63'
+    # Host_Ip = 'localhost'
     Port_Ip = 3000
     request = {
         "request": "subscribe",
@@ -50,7 +50,7 @@ loop.run_until_complete(
         othello(mehdi),
         # othello(mehdi2),
         # othello(mehdi3),
-        othello(ali),
+        # othello(ali),
         # othello(ali2),
         # othello(ali3),
         # othello(fatima),

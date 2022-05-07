@@ -81,9 +81,9 @@ def play_move(board, move, current):
     '''
     playerColors = set(board[current])
     otherColors = board[abs(current - 1)]
-    for direction in directions:
+    for direction in list_directions(move):
         cells_to_flip = set()
-        for cell in avancer(move, direction):
+        for cell in direction:
             if cell in otherColors:
                 cells_to_flip.add(cell)
             elif cell in playerColors:
