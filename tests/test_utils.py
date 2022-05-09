@@ -39,8 +39,15 @@ def test_isGameOver():
 
 
 def test_list_directions():
-    # assert list_directions(26) == []
-    pass
+    assert list(list_directions(26))[0] == [25, 24]
+
 
 def test_get_legal_moves():
     assert get_legal_moves([[28, 35], [27, 6]], 0) == {19, 26}
+
+
+def test_isCornerTaken():
+    assert isCornerTaken([
+        [35, 24, 25, 26, 33, 34, 17, 42, 43, 36, 37, 27, 28, 29, 55, 46],
+        [56, 16, 40, 48, 7, 49, 14, 0, 8, 57, 6, 41, 4, 5, 32, 18, 59, 50, 58, 20, 13, 21, 10, 11, 12, 19, 44, 63, 54,
+         2, 1, 9, 3, 53, 51, 62, 60, 61, 31, 38, 52, 45, 39, 30, 23, 15, 22]], 0) == (set(), {0, 7, 56, 63})

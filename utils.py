@@ -55,6 +55,14 @@ def isCorner(index):
     return False
 
 
+# vérifier si le corner est pris et par qui
+def isCornerTaken(board, playerIndex):
+    otherPlayerIndex = abs(playerIndex - 1)  # (playerIndex + 1) % 2
+    myCorners = {*[0, 7, 56, 63]} & {*board[playerIndex]}
+    otherCorners = {*[0, 7, 56, 63]} & {*board[otherPlayerIndex]}
+    return myCorners, otherCorners
+
+
 # Vérifier si une liste de possibilité contient un corner, si oui le retourner
 def getCorner(legalMoves_list):
     corner = list({*[0, 7, 56, 63]} & {*legalMoves_list})

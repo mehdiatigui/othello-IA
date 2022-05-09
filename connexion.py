@@ -26,7 +26,7 @@ async def inscription(Host_Ip, Port_Ip, request):
 
 # Lancer le serveur
 async def start_server(PORT, alg):
-    server = await asyncio.start_server(lambda r,w: dialogue(r, w, alg), '0.0.0.0', PORT)
+    server = await asyncio.start_server(lambda r, w: dialogue(r, w, alg), '0.0.0.0', PORT)
     print(f"Le serveur écoute sur le port {PORT}, avec l'algorithme {alg} ")
     async with server:
         await server.serve_forever()
