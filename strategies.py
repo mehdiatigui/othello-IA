@@ -18,22 +18,19 @@ from utils import *
 #     return move, message
 
 
-# Random
-
+# Retourner un move d'une façon aléatoire, random
 def random_strategy(legalMoves_list):
     try:  # si liste n'est pas vide ==> random dans la site
         move = random.choice(legalMoves_list)
         message = "random :" + str(move)
         move = int(move)
     except:  # si liste vide ==> exception error
-        print('Liste vide')
         move = None
         message = 'None'
 
     return move, message
 
 
-# mehdi
 Weights = [
     [100, -50, 10, 5, 5, 10, -50, 100],
     [-50, -75, 0, 0, 0, 0, -75, -50],
@@ -46,29 +43,19 @@ Weights = [
 ]
 
 
-# Weights2 = [
-#     [500,   -100,   100,    50, 50, 100, -100, 500],
-#     [-50,   -100,    -5,    -5, -5, -5, -100, -50],
-#     [100,     -5,     5,    0, 0, 5, -5, 100],
-#     [50,      -5,     0,       1, 1, 0, -5, 50],
-#     [50,      -5,     0,       1, 1, 0, -5, 50],
-#     [100,     -5,     5,    0, 0, 5, -5, 100],
-#     [-50,    -75,    -5,    -5, -5, -5, -100, -50],
-#     [500,   -100,   100,    50, 50, 100, -100, 500]
-# ]
-
-
+# Retourner le poids de l'index dans la matrice weight.
 def get_Weight(index):
     row, col = get_coordinates(index)
     weight = Weights[row][col]
     return weight
 
 
+# Trier la liste legal_moves selon le poids dans la matrice weight
 def sorting_legal_moves_weighted(legalMoves_list):
     return sorted(legalMoves_list, key=get_Weight, reverse=True)
 
 
-# Local Maximization
+# Maximization locale
 def weight_strategy(legalMoves_list):
     score = -9999
     move = None
@@ -80,7 +67,7 @@ def weight_strategy(legalMoves_list):
     return move
 
 
-# MiniMax
+# Simuler le jeu d'un move et retourner le nouvel état du plateau.
 def play_move(board, move, current):
     '''
     :param board: Actual board
@@ -111,7 +98,7 @@ def play_move(board, move, current):
     return newboard
 
 
-# update weight value
+# Mettre à jour la matrice des poids selon la prise des coins
 def update_weight_value(board, currentPlayer):
     myCorners, otherCorners = isCornerTaken(board, currentPlayer)
     new_weight = 150
@@ -136,13 +123,14 @@ def update_weight_value(board, currentPlayer):
             change_weight_value([61, 47], new_weight)
 
 
-# change weights
+# changer le poids d'un index dans la matrice weights
 def change_weight_value(list_index, value):
     for cell in list_index:
         row, col = get_coordinates(cell)
         Weights[row][col] = value
 
 
+# Evaluation du nouvel plateau
 def evaluation(board, current):
     evaluation = 0
     playerColors = board[current]
@@ -170,6 +158,7 @@ def move_time(f):
 
 
 @move_time
+# stratégie minimax avec quelques améliorations
 def minimax_strategy(board, legalMoves, currentPlayer):
     tic = time.perf_counter()
     # vérifier si un coin est pris
@@ -193,7 +182,7 @@ def minimax_strategy(board, legalMoves, currentPlayer):
             best_move = None
 
             with stopit.ThreadingTimeout(4.7) as context_manager:
-                legalMoves = sorting_legal_moves_weighted(legalMoves) # trier selon le poid dans la plateau
+                legalMoves = sorting_legal_moves_weighted(legalMoves)  # trier selon le poids dans le plateau
                 for move in legalMoves:
                     new_board = play_move(board, move, currentPlayer)
                     move_val = minimax(currentPlayer, new_board, DEPTH, False, -1000000, 1000000)
@@ -203,7 +192,7 @@ def minimax_strategy(board, legalMoves, currentPlayer):
 
             # Si la recherche minimax n'a pas abouti en 9.5 secondes
             if context_manager.state == context_manager.TIMED_OUT:
-                print("DID NOT FINISH...")
+                print("Recherche pas finie ...")
             # Sinon
             # elif context_manager.state == context_manager.EXECUTED:
             #     print("COMPLETE...")
@@ -214,6 +203,7 @@ def minimax_strategy(board, legalMoves, currentPlayer):
     return move, message
 
 
+# l'algorithme minimax avec coupure alpha beta
 def minimax(playerIndex, board, depth, maximizingPlayer, alpha, beta):
     otherPlayerIndex = (playerIndex + 1) % 2
     if depth == 0 or isGameOver(board):

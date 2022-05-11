@@ -9,6 +9,7 @@ directions = [
     (-1, -1),  # Up-Left
 ]
 
+
 # BOARD
 # 00 01 02 03 04 05 06 07
 # 08 09 10 11 12 13 14 15
@@ -48,14 +49,14 @@ def get_index(row, col):
     return row * 8 + col
 
 
-# retourner True si l'index dans le board est un corner
+# Retourner True si l'index dans le board est un corner
 def isCorner(index):
     if index in [0, 7, 56, 63]:
         return True
     return False
 
 
-# vérifier si le corner est pris et par qui
+# Vérifier si le coin est pris et par qui
 def isCornerTaken(board, playerIndex):
     otherPlayerIndex = abs(playerIndex - 1)  # (playerIndex + 1) % 2
     myCorners = {*[0, 7, 56, 63]} & {*board[playerIndex]}
@@ -63,17 +64,18 @@ def isCornerTaken(board, playerIndex):
     return myCorners, otherCorners
 
 
-# Vérifier si une liste de possibilité contient un corner, si oui le retourner
+# Vérifier si une liste de possibilité contient un coin, si oui le retourner
 def getCorner(legalMoves_list):
     corner = list({*[0, 7, 56, 63]} & {*legalMoves_list})
     return corner
 
 
-# retourner le nombre de cases vides
+# Retourner le nombre de cases vides
 def get_count_empty(board):
     return 64 - (len(board[0]) + len(board[1]))
 
 
+# Vérifier s'il y a encore des possibilités de jeu
 def isGameOver(board):
     # Si aucun coup n'est possible pour les joueurs, gameOver
     black_legal_moves = get_legal_moves(board, 0)

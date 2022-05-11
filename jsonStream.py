@@ -13,7 +13,6 @@ async def readJson(reader: asyncio.StreamReader):
             break
         except json.JSONDecodeError:
             pass
-    print(message_json)
     return message_json
 
 
