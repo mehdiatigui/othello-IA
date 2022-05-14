@@ -1,9 +1,13 @@
-
 # Othello-IA
 
 Intelligence Artificielle qui participe au tournoi PI2CChampionshipRunner et joue à OTHELLO de manière refléchie et sans bad move. 
 Lien du serveur qui permet de jouer au tournoi : https://github.com/qlurkin/PI2CChampionshipRunner
 
+## Lancement
+
+Exemple de commande pour lancer l'IA avec le port 1100:
+
+    - python main.py 1100
 ## Fichiers
 
  - main.py : Fichier principal de lancement.
