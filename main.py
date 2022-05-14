@@ -37,7 +37,7 @@ async def othello(info):
 
 
 mehdi = MyInfo('mehdi', int(sys.argv[1]), '20081', 'minimax')
-ali = MyInfo('ali', int(sys.argv[2]), '20059', 'random')
+#ali = MyInfo('ali', int(sys.argv[2]), '20059', 'random')
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(
